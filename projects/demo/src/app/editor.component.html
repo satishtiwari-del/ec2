@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="content">
+    <div class="display">
+      <div class="logo">
+        <img src="/ngx-editor.svg" alt="ngx-editor" />
+        <div class="subtitle">Rich Text Editor for angular using ProseMirror</div>
+      </div>
+      <div class="badges" *ngIf="!isDevMode">
+        <img src="https://badgen.net/npm/v/ngx-editor" alt="version" />
+        <img src="https://badgen.net/npm/dm/ngx-editor" alt="downloads per month " />
+        <img src="https://badgen.net/npm/dt/ngx-editor" alt="total downloads" />
+        <img src="https://badgen.net/npm/license/ngx-editor" alt="license" />
+      </div>
+    </div>
+
+    <!-- Markdown/AI Toolbar -->
+    <app-editor-md-upload
+      [getEditorContent]="getEditorContentHtml"
+      [setEditorContent]="setEditorContentHtml"
+      [getEditorSelection]="getEditorSelection"
+      [replaceEditorSelection]="replaceEditorSelection"
+    ></app-editor-md-upload>
+
+    <div>
+      <form [formGroup]="form">
+        <div class="editor NgxEditor__Wrapper">
+          <ngx-editor-menu [editor]="editor" [toolbar]="toolbar" [customMenuRef]="customMenu">
+            <app-pdf-menu [editor]="editor"></app-pdf-menu>
+          </ngx-editor-menu>
+          <ngx-editor [editor]="editor" formControlName="editorContent">
+            <ngx-editor-floating-menu [editor]="editor"></ngx-editor-floating-menu>
+          </ngx-editor>
+        </div>
+      </form>
+
+      <!-- custom menu -->
+      <ng-template #customMenu>
+        <app-custom-menu [editor]="editor"></app-custom-menu>
+      </ng-template>
+    </div>
+  </div>
+</div>

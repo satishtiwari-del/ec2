@@ -1,0 +1,352 @@
+{
+    "version": "1.0.0",
+    "tdaid": {
+        "metadata": {
+            "configVersion": "1.0.0",
+            "lastUpdated": "2025-01-22",
+            "description": "TDAID configuration for OptimaStride development pipeline"
+        },
+        "user": {
+            "name": "Adithya Sasi",
+            "github-id": "",
+            "email": "adithya.sasi@optimastride.com",
+            "role": ""
+        },
+        "reviewers": {
+            "name": "Adithya Sasi",
+            "github-id": "",
+            "email": "adithya.sasi@optimastride.com",
+            "role": ""
+        },
+        "generators": {
+            "location": "/tdaid/generators"
+        },
+        "activities": {
+            "primary": ["build", "refactor"],
+            "scopes": {
+                "build": ["application", "module", "feature", "enhancement", "bugFix"],
+                "refactor": ["restructuring", "readability", "performance", "security", "portability", "maintainability", "scalability"]
+            }
+        },
+        "architecture": {
+            "clients": {
+                "webApp": {
+                    "skipGeneration": false,
+                    "mockApi": true,
+                    "experience": {
+                        "ux": {
+                            "modern": true,
+                            "legacy": false,
+                            "thematic": true,
+                            "flat": false,
+                            "dialogueOverDropdown": true,
+                            "branding": {}
+                        },
+                        "ui": {
+                            "responsive": true,
+                            "mobile": true,
+                            "bootstrap": false,
+                            "material": true
+                        }
+                    },
+                    "artifacts": {
+                        "hasModules": true,
+                        "hasFeatures": true,
+                        "hasComponents": true,
+                        "hasServices": true,
+                        "hasPipes": true,
+                        "hasDirectives": true,
+                        "hasGuards": true,
+                        "everyModuleHasModuleFolder": true,
+                        "everyFeatureHasFeatureFolder": true,
+                        "featureFolderMustBeInRelatedModuleFolder": true,
+                        "everyFeatureHasFunctionalUseCases": true,
+                        "everyFeatureHasTechnicalUseCases": true,
+                        "everyFeatureHasUxUiUseCases": true,
+                        "everyFeatureHasIntegrationUseCases": true
+                    },
+                    "technology": {
+                        "framework": {
+                            "name": "angular",
+                            "language": "typescript",
+                            "version": "20.0.0"
+                        },
+                        "uiFramework": {
+                            "name": "material",
+                            "version": "20.0.0"
+                        },
+                        "testing": {
+                            "unitTestFramework": "angular-default",
+                            "e2eTestFramework": "cypress",
+                            "e2eTestFrameworkVersion": "angular-compatible"
+                        },
+                        "defaultDependencies": {
+                            "icons": {
+                                "name": "google-icon-font",
+                                "version": "latest",
+                                "npmPackage": ""
+                            },
+                            "rxjs": {
+                                "version": "7.0.0",
+                                "npmPackage": "rxjs"
+                            },
+                            "bootstrap": {
+                                "version": "15.0.0",
+                                "npmPackage": "bootstrap"
+                            },
+                            "optimaPlatform": {
+                                "version": "1.0.0",
+                                "npmPackage": "@optima/platform"
+                            },
+                            "optimaAppFramework": {
+                                "version": "1.0.0",
+                                "npmPackage": "@optima/app-framework"
+                            },
+                            "optimaStarterApp": {
+                                "version": "1.0.0",
+                                "npmPackage": "@optima/starter-app"
+                            },
+                            "angularInMemoryWebApi": {
+                                "version": "0.18.0",
+                                "npmPackage": "angular-in-memory-web-api"
+                            }
+                        }
+                    }
+                }
+            },
+            "api": {
+                "skipGeneration": true,
+                "technology": {
+                    "runtime": {
+                        "name": "node-js",
+                        "version": "20.0.0"
+                    },
+                    "framework": {
+                        "name": "nestjs",
+                        "version": "10.0.0",
+                        "npmPackage": "@nestjs/core"
+                    },
+                    "language": {
+                        "name": "typescript",
+                        "version": "5.0.0"
+                    }
+                }
+            },
+            "storage": {
+                "skipGeneration": true,
+                "databases": {
+                    "relational": {
+                        "skipGeneration": true,
+                        "name": "postgresql",
+                        "version": "15.0.0",
+                        "orm": "typeorm"
+                    },
+                    "nosql": {
+                        "skipGeneration": true,
+                        "name": "mongodb",
+                        "version": "7.0.0"
+                    },
+                    "fileStorage": {
+                        "skipGeneration": true,
+                        "name": "s3",
+                        "provider": "aws"
+                    }
+                }
+            }
+        }
+    },
+    "project": {
+        "artifactsRootFolder": "ai/test"
+    },
+    "pipeline": {
+        "execution": {
+            "mode": "sequential",
+            "continueOnError": false,
+            "generateUuid": true
+        },
+        "pipes": {
+            "start": {
+                "order": 0,
+                "name": "start",
+                "description": "Initialize the TDAID cycle and validate prerequisites",
+                "skipGeneration": false,
+                "category": "initialization",
+                "steps": [
+                    {
+                        "name": "scaffold generation and start the pipeline",
+                        "instructionFile": "start.md",
+                        "skipGeneration": false
+                    }
+                ]
+            },
+            "functionalUseCases": {
+                "order": 1,
+                "name": "functional-use-case-generation",
+                "description": "Generate functional use cases from requirements",
+                "skipGeneration": false,
+                "category": "analysis",
+                "steps": [
+                    {
+                        "name": "generate-functional-use-cases",
+                        "instructionFile": "use-case-generate.md",
+                        "skipGeneration": false
+                    }
+                ],
+                "input": {
+                    "required": ["validated-requirements", "cycle-uuid"],
+                    "optional": ["existing-use-cases"]
+                },
+                "output": {
+                    "artifacts": ["functional-use-cases.md"]
+                }
+            },
+            "technicalUseCases": {
+                "order": 2,
+                "name": "technical-use-case-generation",
+                "description": "Generate technical use cases from functional use cases",
+                "skipGeneration": false,
+                "category": "design",
+                "steps": [
+                    {
+                        "name": "generate-technical-use-cases",
+                        "instructionFile": "tech-use-case-generate.md",
+                        "skipGeneration": false
+                    }
+                ],
+                "input": {
+                    "required": ["functional-use-cases.md", "architecture-config"],
+                    "optional": ["existing-technical-specs"]
+                },
+                "output": {
+                    "artifacts": ["technical-use-cases.md"]
+                }
+            },
+            "unitTestGeneration": {
+                "order": 10,
+                "name": "unit-test-generation",
+                "description": "TDD Red Phase - Generate unit tests",
+                "skipGeneration": true,
+                "category": "testing",
+                "steps": [
+                    {
+                        "name": "generate-unit-tests",
+                        "instructionFile": "red-phase-unit-test-case-generate.md",
+                        "skipGeneration": true
+                    }
+                ],
+                "input": {
+                    "required": ["technical-use-cases.md"],
+                    "optional": ["existing-tests"]
+                },
+                "output": {
+                    "artifacts": ["unit-tests.spec.ts"]
+                }
+            },
+            "implementationGeneration": {
+                "order": 11,
+                "name": "implementation-generation",
+                "description": "TDD Green Phase - Generate implementation code",
+                "skipGeneration": true,
+                "category": "implementation",
+                "steps": [
+                    {
+                        "name": "generate-implementation",
+                        "instructionFile": "green-phase-implementation-generate.md",
+                        "skipGeneration": true
+                    }
+                ],
+                "input": {
+                    "required": ["unit-tests.spec.ts", "technical-use-cases.md"],
+                    "optional": ["existing-implementation"]
+                },
+                "output": {
+                    "artifacts": ["implementation-code"]
+                }
+            },
+            "uiUXTestGeneration": {
+                "order": 12,
+                "name": "ui-ux-test-generation",
+                "description": "TDD Red Phase - Generate UI/UX tests",
+                "skipGeneration": true,
+                "category": "testing",
+                "steps": [
+                    {
+                        "name": "generate-ui-ux-tests",
+                        "instructionFile": "red-phase-ui-ux-test-case-generate.md",
+                        "skipGeneration": true
+                    }
+                ],
+                "input": {
+                    "required": ["technical-use-cases.md", "implementation-code"],
+                    "optional": ["existing-ui-ux-tests"]
+                },
+                "output": {
+                    "artifacts": ["ui-ux-tests.spec.ts"]
+                }
+            },
+            "uiUXImplementation": {
+                "order": 13,
+                "name": "ui-ux-implementation-generation",
+                "description": "TDD Green Phase - Generate UI/UX implementation code",
+                "skipGeneration": true,
+                "category": "implementation",
+                "steps": [
+                    {
+                        "name": "generate-ui-ux-implementation",
+                        "instructionFile": "green-phase-ui-ux-implementation-generate.md",
+                        "skipGeneration": true
+                    }
+                ],
+                "input": {
+                    "required": ["ui-ux-tests.spec.ts", "technical-use-cases.md"],
+                    "optional": ["existing-ui-ux-implementation"]
+                },
+                "output": {
+                    "artifacts": ["ui-ux-implementation-code"]
+                }
+            },
+            "integrationTestGeneration": {
+                "order": 20,
+                "name": "integration-test-generation",
+                "description": "Generate integration tests for complete features",
+                "skipGeneration": true,
+                "category": "testing",
+                "steps": [
+                    {
+                        "name": "generate-integration-tests",
+                        "instructionFile": "integration-test-generate.md",
+                        "skipGeneration": true
+                    }
+                ],
+                "input": {
+                    "required": ["implementation-code", "technical-use-cases.md"],
+                    "optional": ["existing-integration-tests"]
+                },
+                "output": {
+                    "artifacts": ["integration-tests.spec.ts"]
+                }
+            },
+            "e2eTestGeneration": {
+                "order": 21,
+                "name": "e2e-test-generation",
+                "description": "Generate end-to-end tests for user workflows",
+                "skipGeneration": true,
+                "category": "testing",
+                "steps": [
+                    {
+                        "name": "generate-e2e-tests",
+                        "instructionFile": "e2e-test-generate.md",
+                        "skipGeneration": true
+                    }
+                ],
+                "input": {
+                    "required": ["functional-use-cases.md", "ux-ui-use-cases.md"],
+                    "optional": ["existing-e2e-tests"]
+                },
+                "output": {
+                    "artifacts": ["e2e-tests.spec.ts"]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,6 @@
+<div class="md-upload-toolbar">
+  <input type="file" accept=".md" (change)="onFileSelected($event)" />
+  <button type="button" (click)="exportAsMarkdown()">Export as Markdown</button>
+  <button type="button" (click)="exportAsHtml()">Export as HTML</button>
+  <button type="button" (click)="aiRewriteSelection()">AI Rewrite Selection</button>
+</div>

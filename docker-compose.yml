@@ -1,0 +1,79 @@
+services:
+  collabora:
+    image: collabora/code:latest
+    container_name: collabora
+    ports:
+      - "9980:9980"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      domain: "localhost|127.0.0.1|host.docker.internal"
+      extra_params: >
+        --o:ssl.enable=false --o:ssl.termination=false
+        --o:storage.wopi.host[0].allow=true
+        --o:storage.wopi.host[0].host=http://host.docker.internal:3000
+        --o:storage.wopi.host[0].alias[0]=http://localhost:3000
+        --o:storage.wopi.host[0].alias[1]=http://127.0.0.1:3000
+        --o:net.frame_ancestors=http://localhost:3000 http://127.0.0.1:3000 http://host.docker.internal:3000 http://localhost:4200 http://127.0.0.1:4200
+        --o:session.expiration=172800
+        --o:session.expiration_inactivity=86400
+        --o:ws.connection_timeout=1200
+        --o:ws.message_timeout=300
+        --o:per_document.idle_timeout_secs=1800
+    cap_add:
+      - MKNOD
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse
+    security_opt:
+      - apparmor:unconfined
+    restart: unless-stopped
+
+# version: '3.9'
+# services:
+#   haproxy:
+#     image: haproxy:2.9
+#     container_name: collabora-lb
+#     ports:
+#       - "9980:9980"
+#     volumes:
+#       - ./scripts/haproxy-collabora.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+#     depends_on:
+#       - collabora
+#     networks:
+#       - wopi
+#     restart: unless-stopped
+
+#   collabora:
+#     image: collabora/code:latest
+#     mem_limit: 2g 
+#     mem_reservation: 1g
+#     environment:
+#       - domain=localhost|127\.0\.0\.1|host\.docker\.internal
+#       - extra_params=--o:ssl.enable=false --o:ssl.termination=false \
+#           --o:storage.wopi.host[0].allow=true \
+#           --o:storage.wopi.host[0].host=http://host.docker.internal:3000 \
+#           --o:storage.wopi.host[0].alias[0]=http://localhost:3000 \
+#           --o:storage.wopi.host[0].alias[1]=http://127.0.0.1:3000 \
+#           --o:net.frame_ancestors=http://localhost:3000 http://127.0.0.1:3000 http://host.docker.internal:3000 http://localhost:4200 http://127.0.0.1:4200 \
+#           --o:session.expiration=172800 \
+#           --o:session.expiration_inactivity=86400 \
+#           --o:ws.connection_timeout=1200 \
+#           --o:ws.message_timeout=300 \
+#           --o:per_document.idle_timeout_secs=1800
+#     extra_hosts:
+#       - "host.docker.internal:host-gateway"
+#     cap_add:
+#       - MKNOD
+#       - SYS_ADMIN
+#     devices:
+#       - /dev/fuse
+#     security_opt:
+#       - apparmor:unconfined
+#     networks:
+#       - wopi
+#     restart: unless-stopped
+
+# networks:
+#   wopi:
+#     driver: bridge

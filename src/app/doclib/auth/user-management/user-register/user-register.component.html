@@ -1,0 +1,88 @@
+<div class="user-register-container mat-elevation-z2">
+  <h2>Register New User</h2>
+
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="registration-form">
+    <!-- Email Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="user@example.com" required>
+      <mat-error *ngIf="registrationForm.get('email')?.invalid">
+        {{ getErrorMessage('email') }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Full Name Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Full Name</mat-label>
+      <input matInput formControlName="fullName" placeholder="John Doe" required>
+      <mat-error *ngIf="registrationForm.get('fullName')?.invalid">
+        {{ getErrorMessage('fullName') }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Role Selection -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="role" required>
+        <mat-option *ngFor="let role of roles" [value]="role">
+          {{ role.charAt(0).toUpperCase() + role.slice(1) }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="registrationForm.get('role')?.invalid">
+        {{ getErrorMessage('role') }}
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Department Field -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Department</mat-label>
+      <input matInput formControlName="department" placeholder="Engineering">
+    </mat-form-field>
+
+  <!-- Password Fields -->
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" placeholder="Enter password" required>
+    <mat-error *ngIf="registrationForm.get('password')?.invalid">
+      {{ getErrorMessage('password') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Confirm Password</mat-label>
+    <input matInput type="password" formControlName="confirmPassword" placeholder="Confirm password" required>
+    <mat-error *ngIf="registrationForm.get('confirmPassword')?.invalid || registrationForm.get('confirmPassword')?.touched">
+      {{ getErrorMessage('confirmPassword') }}
+    </mat-error>
+  </mat-form-field>
+
+    <!-- Contact Information -->
+    <div formGroupName="contactInfo" class="contact-info">
+      <h3>Contact Information</h3>
+      
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Phone</mat-label>
+        <input matInput formControlName="phone" placeholder="+1-555-0123">
+        <mat-error *ngIf="registrationForm.get('contactInfo.phone')?.invalid">
+          {{ getErrorMessage('phone') }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Location</mat-label>
+        <input matInput formControlName="location" placeholder="Office Location">
+        <mat-error *ngIf="registrationForm.get('contactInfo.location')?.invalid">
+          {{ getErrorMessage('location') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="isSubmitting">
+        <mat-spinner diameter="20" *ngIf="isSubmitting"></mat-spinner>
+        <span>{{ isSubmitting ? 'Registering...' : 'Register User' }}</span>
+      </button>
+    </div>
+  </form>
+</div>

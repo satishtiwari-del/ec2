@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sample coolwsd.xml for high-concurrency Collabora Online cluster nodes.
+     Adjust per hardware; values below are starting points, not absolutes. -->
+<config>
+  <server_name desc="Hostname of this node">collabora-node</server_name>
+  <num_prespawned_documents desc="Warm document kits to reduce cold starts">8</num_prespawned_documents>
+  <sys_template_cache_size_mb desc="Template cache size per node">512</sys_template_cache_size_mb>
+  <file_server>
+    <usetls desc="Terminate TLS at LB; keep http internally">false</usetls>
+  </file_server>
+  <logging>
+    <level>information</level>
+  </logging>
+  <ssl desc="TLS termination is at the load-balancer; keep disabled here">
+    <enable>false</enable>
+  </ssl>
+  <loleaflet>
+    <enable_debug>false</enable_debug>
+    <first_run_wizard>false</first_run_wizard>
+    <help_tips>false</help_tips>
+  </loleaflet>
+  <ws>
+    <connection_timeout_secs desc="Websocket idle timeout">1200</connection_timeout_secs>
+    <message_timeout_secs desc="Message processing timeout">300</message_timeout_secs>
+    <max_message_kb desc="Max WS message size">5120</max_message_kb>
+  </ws>
+<storage desc="WOPI storage config">
+  <filesystem allow="true"/>
+  <wopi desc="Allow WOPI requests">
+    <host desc="Backend API host">localhost:3000</host>
+    <host desc="Backend API host">127.0.0.1:3000</host>
+    <host desc="Angular dev server">localhost:4200</host>
+    <host desc="Angular dev server">127.0.0.1:4200</host>
+    <host desc="Docker host alias">host.docker.internal:3000</host>
+  </wopi>
+</storage>
+
+  <net>
+    <listen>0.0.0.0</listen>
+    <proto>http</proto>
+  </net>
+  <client_limits>
+    <timeout_secs desc="UI/client timeout">900</timeout_secs>
+    <max_concurrency desc="Max parallel tile rendering tasks">16</max_concurrency>
+    <max_docs desc="Max docs per node (kits)">400</max_docs>
+    <max_connections desc="Max connections per node">2000</max_connections>
+  </client_limits>
+  <per_document>
+    <idle_timeout_secs desc="Close idle docs">1800</idle_timeout_secs>
+    <autosave_interval_secs desc="Autosave interval">300</autosave_interval_secs>
+  </per_document>
+  <tile_cache>
+    <cache_size_mb desc="Rendered tile cache per node">2048</cache_size_mb>
+    <cache_expiry_secs desc="Tile expiry">600</cache_expiry_secs>
+  </tile_cache>
+</config>

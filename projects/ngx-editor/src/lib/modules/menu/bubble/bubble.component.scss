@@ -1,0 +1,45 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: var(--ngx-editor-bubble-bg-color);
+  color: var(--ngx-editor-bubble-text-color);
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.NgxBubbleMenu__Icon {
+  all: unset;
+  appearance: none;
+  height: var(--ngx-editor-icon-size);
+  width: var(--ngx-editor-icon-size);
+  transition: 0.2s ease-in-out;
+  border-radius: var(--ngx-editor-menu-item-border-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+
+  &:hover {
+    background-color: var(--ngx-editor-bubble-item-hover-color);
+  }
+
+  + .NgxBubbleMenu__Icon {
+    margin-left: 5px;
+  }
+
+  &.NgxBubbleMenu__Icon--Active {
+    background-color: var(--ngx-editor-bubble-text-color);
+    color: var(--ngx-editor-bubble-bg-color);
+  }
+}
+
+.NgxBubbleMenu__Seperator {
+  border-left: 1px solid var(--ngx-editor-seperator-color);
+  margin: 0 5px;
+}

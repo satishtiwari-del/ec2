@@ -1,0 +1,9 @@
+.md-upload-toolbar {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+input[type='file'] {
+  margin-right: 8px;
+}
